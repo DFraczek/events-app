@@ -1,0 +1,49 @@
+# --- JAVA & MAVEN ---
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/wrapper/maven-wrapper.jar
+
+# --- SECURITY  ---
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iws
+*.iml
+*.ipr
+.env
+
+# --- VS Code ---
+.vscode/
+*.code-workspace
+
+# --- STS / ECLIPSE ---
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# --- SYSTEM & LOGS ---
+.DS_Store
+Thumbs.db
+log/
+logs/
+*.tmp
+*.temp
+
+# --- OS X ---
+.DS_Store
+.AppleDouble
+.LSOverride
+
+node_modules/
