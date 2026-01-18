@@ -1,5 +1,5 @@
 import React from 'react';
-import {RotateCcw, SlidersHorizontal} from 'lucide-react';
+import { RotateCcw, SlidersHorizontal } from 'lucide-react';
 import {
     Dialog,
     DialogContent,
@@ -49,15 +49,17 @@ export function EventFiltersModal({
                     <SlidersHorizontal className="size-4 text-zinc-500" />
                     <span className="font-semibold text-zinc-700">Filtry</span>
                     {activeFiltersCount > 0 && (
-                        <span className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[11px] font-bold">
+                        <span className="flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-white text-black text-[11px] font-bold">
                             {activeFiltersCount}
                         </span>
                     )}
                 </Button>
             </DialogTrigger>
 
-            <DialogContent className="w-[95vw] sm:max-w-2xl lg:max-w-3xl !rounded-[3rem] !p-0 overflow-hidden border-none shadow-2xl">
-                <div className="p-8 pb-4">
+            <DialogContent className="w-[95vw] sm:max-w-2xl lg:max-w-3xl !rounded-[3rem] !p-0 overflow-hidden border-none shadow-2xl max-h-[90vh] flex flex-col">
+
+                <div className="p-8 pb-4 flex-1 overflow-y-auto">
+
                     <DialogHeader className="mb-6">
                         <DialogTitle className="text-3xl font-black tracking-tight text-zinc-900">
                             Filtry
@@ -70,27 +72,24 @@ export function EventFiltersModal({
                                 Kategorie
                             </h4>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-
                                 {EVENT_CATEGORIES.map((category) => (
                                     <div
                                         key={category.id}
+                                        onClick={() => toggleCategory(category.id)}
                                         className={`flex items-center gap-3 p-3 !rounded-2xl border transition-all duration-200 cursor-pointer hover:border-zinc-300 ${
                                             selectedCategories.includes(category.id)
                                                 ? 'border-primary/50 bg-primary/[0.03] ring-1 ring-primary/20 '
                                                 : 'border-zinc-100 bg-zinc-50/50'
                                         }`}
-                                        onClick={() => toggleCategory(category.id)}
                                     >
                                         <Checkbox
                                             id={`modal-cat-${category.id}`}
                                             checked={selectedCategories.includes(category.id)}
-                                            onCheckedChange={() => toggleCategory(category.id)}
-                                            className="rounded-md border-zinc-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                                            className="rounded-md border-zinc-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary pointer-events-none"
                                         />
                                         <Label
                                             htmlFor={`modal-cat-${category.id}`}
-                                            className="text-sm cursor-pointer font-bold text-zinc-700 leading-none"
-                                            onClick={(e) => e.stopPropagation()}
+                                            className="text-sm cursor-pointer font-bold text-zinc-700 leading-none pointer-events-none"
                                         >
                                             {category.name}
                                         </Label>
@@ -127,25 +126,23 @@ export function EventFiltersModal({
                                             {['NADCHODZACE', 'ZAKONCZONE'].map((status) => (
                                                 <div
                                                     key={status}
+                                                    onClick={() => toggleStatus(status)}
                                                     className={`flex items-center gap-3 p-3 !rounded-2xl border transition-all duration-200 cursor-pointer hover:border-zinc-300 ${
                                                         selectedStatuses.includes(status)
                                                             ? 'border-primary/50 bg-primary/[0.03] ring-1 ring-primary/20'
                                                             : 'border-zinc-100 bg-zinc-50/50'
                                                     }`}
-                                                    onClick={() => toggleStatus(status)}
                                                 >
                                                     <div className="flex-shrink-0 flex items-center">
                                                         <Checkbox
                                                             id={`status-${status}`}
                                                             checked={selectedStatuses.includes(status)}
-                                                            onCheckedChange={() => toggleStatus(status)}
-                                                            className="rounded-md border-zinc-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                                                            className="rounded-md border-zinc-300 data-[state=checked]:bg-primary data-[state=checked]:border-primary pointer-events-none"
                                                         />
                                                     </div>
                                                     <Label
                                                         htmlFor={`status-${status}`}
-                                                        className="text-sm cursor-pointer font-bold text-zinc-700 leading-none"
-                                                        onClick={(e) => e.stopPropagation()}
+                                                        className="text-sm cursor-pointer font-bold text-zinc-700 leading-none pointer-events-none"
                                                     >
                                                         {status === 'NADCHODZACE' ? 'Nadchodzące' : 'Zakończone'}
                                                     </Label>
@@ -159,7 +156,7 @@ export function EventFiltersModal({
                     </div>
                 </div>
 
-                <div className="p-6 bg-zinc-50 border-t border-zinc-100 mt-4 space-y-3">
+                <div className="p-6 bg-zinc-50 border-t border-zinc-100 mt-auto space-y-3 z-10">
                     <Button
                         className="w-full rounded-[1.25rem] h-14 font-black text-base shadow-xl shadow-primary/20 transition-transform active:scale-[0.98]"
                         onClick={() => onOpenChange(false)}

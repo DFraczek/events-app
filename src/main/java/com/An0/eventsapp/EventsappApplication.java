@@ -25,14 +25,11 @@ public class EventsappApplication {
 		try {
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
-			// Ignorujemy i zostajemy przy localhost
 		}
 
 		System.out.println("\n----------------------------------------------------------");
-		System.out.println("Aplikacja działa pod adresami:");
-		System.out.println("Lokalny:    " + protocol + "://localhost:" + port);
-		System.out.println("Zewnętrzny: " + protocol + "://" + hostAddress + ":" + port);
-		System.out.println("Strona logowania: " + protocol + "://localhost:" + port + "");
+		System.out.println("Aplikacja działa pod adresem:");
+		System.out.println(protocol + "://localhost:" + port);
 		System.out.println("----------------------------------------------------------\n");
 	}
 
