@@ -28,6 +28,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <>{children || <Outlet />}</>;
 };
 
+const PublicRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) return null;
+
+    if (user) return <Navigate to={ROUTES.HOME} replace />;
+
+    return <>{children || <Outlet />}</>;
+};
+
 function AppRoutes() {
     const { user, login, register, isLoading } = useAuth();
     const [fullUser, setFullUser] = useState<User | null>(null);
@@ -51,7 +61,6 @@ function AppRoutes() {
         return () => window.removeEventListener('profileUpdated', fetchUserData);
     }, [user]);
 
-    // Skracamy zmienne
     const currentUser = fullUser || (user as User);
     const currentUserId = currentUser?.id?.toString();
 
@@ -74,8 +83,10 @@ function AppRoutes() {
 
             <main className={user ? 'lg:ml-64 pt-16 lg:pt-0' : ''}>
                 <Routes>
-                    <Route path={ROUTES.LOGIN} element={<LoginPage onLogin={login} />} />
-                    <Route path={ROUTES.REGISTER} element={<RegisterPage onRegister={register} />} />
+                    <Route element={<PublicRoute />}>
+                        <Route path={ROUTES.LOGIN} element={<LoginPage onLogin={login} />} />
+                        <Route path={ROUTES.REGISTER} element={<RegisterPage onRegister={register} />} />
+                    </Route>
 
                     <Route element={<ProtectedRoute />}>
                         <Route path={ROUTES.HOME} element={<AllEventsPage currentUserId={currentUserId} />} />
