@@ -9,7 +9,7 @@ import com.An0.eventsapp.enums.ParticipantRole;
 import com.An0.eventsapp.repository.EventParticipantRepository;
 import com.An0.eventsapp.repository.EventRepository;
 import com.An0.eventsapp.repository.UserRepository;
-import com.An0.eventsapp.service.SupabaseStorageService;
+import com.An0.eventsapp.service.LocalStorageService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class EventController {
     private final EventRepository eventRepository;
     private final EventParticipantRepository participantRepository;
     private final UserRepository userRepository;
-    private final SupabaseStorageService supabaseStorageService;
+    private final LocalStorageService localStorageService;
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -91,7 +91,7 @@ public class EventController {
         event.setEventStatus(EventStatus.NADCHODZACE);
 
         if (image != null && !image.isEmpty()) {
-            String imageUrl = supabaseStorageService.uploadFile(image, "event", currentUser.getId(), "events");
+            String imageUrl = localStorageService.uploadFile(image, "event", currentUser.getId(), "events");
             event.setPhoto(imageUrl);
         }
 
@@ -285,9 +285,9 @@ public class EventController {
 
         try {
             if (event.getPhoto() != null && !event.getPhoto().isEmpty()) {
-                supabaseStorageService.deleteFileByUrl(event.getPhoto());
+                localStorageService.deleteFileByUrl(event.getPhoto());
             }
-            String publicUrl = supabaseStorageService.uploadFile(file, "event", event.getId(), "events");
+            String publicUrl = localStorageService.uploadFile(file, "event", event.getId(), "events");
 
             event.setPhoto(publicUrl);
             eventRepository.save(event);
@@ -313,7 +313,7 @@ public class EventController {
         }
 
         if (event.getPhoto() != null) {
-            supabaseStorageService.deleteFileByUrl(event.getPhoto());
+            localStorageService.deleteFileByUrl(event.getPhoto());
             event.setPhoto(null);
             eventRepository.save(event);
         }

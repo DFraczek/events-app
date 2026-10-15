@@ -110,7 +110,7 @@ export function ProfilePage() {
 
     try {
       setIsUploading(true);
-      const response = await axios.post('http://localhost:8080/api/users/upload-avatar', uploadData, {
+      const response = await axios.post('/api/users/upload-avatar', uploadData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${localStorage.getItem('token')}`

@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:17
+    container_name: eventsapp-db
+    environment:
+      POSTGRES_DB: eventsapp
+      POSTGRES_USER: eventsapp
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - eventsapp_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eventsapp -d eventsapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+    container_name: eventsapp-backend
+    environment:
+      APP_STORAGE_LOCATION: /app/uploads
+      DB_URL: jdbc:postgresql://db:5432/eventsapp
+      DB_USER: eventsapp
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+    volumes:
+      - eventsapp_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: eventsapp-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  eventsapp_db_data:
+  eventsapp_uploads:

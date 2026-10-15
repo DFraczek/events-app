@@ -3,7 +3,7 @@ package com.An0.eventsapp.controller;
 import com.An0.eventsapp.dto.UserResponseDTO;
 import com.An0.eventsapp.entity.User;
 import com.An0.eventsapp.repository.UserRepository;
-import com.An0.eventsapp.service.SupabaseStorageService;
+import com.An0.eventsapp.service.LocalStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserRepository userRepository;
-    private final SupabaseStorageService storageService;
+    private final LocalStorageService storageService;
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> getCurrentUser() {

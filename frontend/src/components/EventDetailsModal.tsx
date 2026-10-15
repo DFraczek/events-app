@@ -137,7 +137,7 @@ export function EventDetailsModal({
 
     try {
       setIsUploading(true);
-      const response = await axios.post(`http://localhost:8080/api/events/${event.id}/upload-photo`, uploadData, {
+      const response = await axios.post(`/api/events/${event.id}/upload-photo`, uploadData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -159,7 +159,7 @@ export function EventDetailsModal({
     if (!window.confirm("Czy na pewno chcesz usunąć zdjęcie?")) return;
     try {
       setIsUploading(true);
-      await axios.delete(`http://localhost:8080/api/events/${event.id}/photo`, {
+      await axios.delete(`/api/events/${event.id}/photo`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       setEditData((prev: any) => ({ ...prev, photo: null }));
