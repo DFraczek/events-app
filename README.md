@@ -7,12 +7,17 @@ The application is built with React and TypeScript on the frontend and Java Spri
 
 ## Screenshots
 
-<!-- todo. -->
+### Event Discovery
+<img src="https://github.com/user-attachments/assets/0ccd7d5e-9290-48be-895a-9f1f2a6ab02b" alt="Event discovery and browsing" width="800" />
 
-<!-- ![Events list]-->
-<!-- ![Event details]-->
-<!-- ![Calendar]-->
-<!-- ![User profile])-->
+### Event Details
+<img src="https://github.com/user-attachments/assets/0c168c07-9460-4ffe-aa8d-9398752acbc3" alt="Event details" width="800" />
+
+### Calendar
+<img src="https://github.com/user-attachments/assets/0bb552b2-e3e2-4c4b-8614-29a0cc8c0f1f" alt="Event calendar" width="800" />
+
+### User Profile
+<img src="https://github.com/user-attachments/assets/b4e4a352-a027-47f7-a2d9-0603ad37b7c0" alt="User profile" width="800" />
 
 ## Features
 
