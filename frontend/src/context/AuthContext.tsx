@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (data: { email: string; password: string }) => {
     try {
-      const res = await axios.post('http://localhost:8080/api/auth/login', data);
+      const res = await axios.post('/api/auth/login', data);
       const token = res.data.token;
       if (!token) throw new Error("Brak tokena!");
 
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (data: { name: string, surname: string, email: string; password: string }) => {
 
     try {
-      await axios.post('http://localhost:8080/api/auth/register', data, {
+      await axios.post('/api/auth/register', data, {
         headers: {
           'Content-Type': 'application/json'
         }

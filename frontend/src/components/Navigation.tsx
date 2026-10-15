@@ -20,7 +20,7 @@ export function Navigation({ userName, userAvatar }: NavigationProps) {
   const fetchProfile = useCallback(() => {
     const token = localStorage.getItem('token');
     if (user && user.email && token) {
-      axios.get('http://localhost:8080/api/users/me', {
+      axios.get('/api/users/me', {
         headers: {
           Authorization: `Bearer ${token}`
         }
